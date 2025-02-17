@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+</head>
+<body>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.main_container {
+			text-align: center;
+			padding: 50px;
+		}
+		.main_container h3{
+			font-size: 50px;
+			color: blue;
+		}
+		
+		.main_form {
+			font-size: 30px;
+			justify-content: space-between;
+		}
+		
+		.main_form input {
+			width: 300px;
+			height: 50px;
+			margin: 50px;
+			font-size: 30px;
+		}
+		
+		.main_form .btnSub:hover{
+			background-color: rgba(255, 0, 0, 0.9);
+			color: #fff;
+		}
+	</style>
+	<div class = "main_container">
+	<h3>사원등록 페이지</h3>
+		<form action="addEmpServlet" class = "main_form">
+		  사   번 : <input type="number" name="empNo"><br>
+		  이   름 : <input type="text" name="empName"><br>
+		  전화번호 : <input type="tel" name="telNo"><br>
+		  <input type="submit" class ="btnSub" value="제출">
+		  <input type="reset" class ="btnRe" value="초기화"> 
+		</form>
+	</div>
+</body>
+</html>
