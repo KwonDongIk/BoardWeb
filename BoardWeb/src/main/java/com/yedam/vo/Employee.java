@@ -1,4 +1,4 @@
-package com.yedam;
+package com.yedam.vo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

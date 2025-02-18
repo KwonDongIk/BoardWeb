@@ -1,8 +1,10 @@
-package com.yedam;
+package com.yedam.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.yedam.vo.Student;
 
 public class StudentDAO extends DAO{
 	

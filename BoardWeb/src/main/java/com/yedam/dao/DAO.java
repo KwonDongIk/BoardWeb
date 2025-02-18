@@ -1,4 +1,4 @@
-package com.yedam;
+package com.yedam.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

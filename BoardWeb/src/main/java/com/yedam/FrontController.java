@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.control.AddBoardListControl;
+import com.yedam.control.BoardListControl;
+import com.yedam.control.Control;
+
 /*
  * MVC에서 Control 역할
  * url 요청 -> 서블릿 실행
@@ -46,7 +50,7 @@ public class FrontController extends HttpServlet{
 		
 		// map 컬렉션에서 key를 입력하면 val 반환
 		Control control = map.get(page);
-		control.exec();
+		control.exec(req, resp);
 	}
 
 }

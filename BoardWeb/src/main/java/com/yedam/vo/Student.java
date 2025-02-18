@@ -1,4 +1,4 @@
-package com.yedam;
+package com.yedam.vo;
 
 public class Student {
 	private String studentNo;
