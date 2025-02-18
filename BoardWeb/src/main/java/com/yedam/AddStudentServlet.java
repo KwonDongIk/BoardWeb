@@ -8,19 +8,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// init - service - destroy : 서블릿의 생명주기
-@WebServlet("/addEmpServlet")
-public class AddEmployeeServ extends HttpServlet {
+@WebServlet("/addStudentServlet")
+public class AddStudentServlet extends HttpServlet{
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
-		String eno = req.getParameter("empNo"); // empNo의 parameter에 담겨있는 값 반환
-		String ename = req.getParameter("empName");
+		String sno = req.getParameter("studentNo");
+		String sname = req.getParameter("studentName");
 		String tel = req.getParameter("telNo");
+		String addr = req.getParameter("address");
 		
-		EmpDAO edao = new EmpDAO();
-		boolean result = edao.registerEmp(new Employee(Integer.parseInt(eno), ename, tel));
+		StudentDAO sdao = new StudentDAO();
+		Student std = new Student();
+		std.setStudentNo(sno);
+		std.setStudentName(sname);
+		std.setTelNo(tel);
+		std.setAddress(addr);
+		
+		boolean result = sdao.addStudent(std);
 		
 		if (result) {
 			resp.getWriter().print("처리성공");
@@ -30,5 +37,6 @@ public class AddEmployeeServ extends HttpServlet {
 		}
 	
 	}
+	
 
 }

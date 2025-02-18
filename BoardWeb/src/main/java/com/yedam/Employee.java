@@ -12,12 +12,12 @@ import java.util.Date;
  * 급여(300, 350)
  */
 
-public class Employee {
-	private int empNo;
-	private String empName;
-	private String telNo;
-	private Date hireDate;
-	private int salary;
+public class Employee { // tbl_employess 
+	private int empNo; // emp_no 컬럼
+	private String empName; // emp_name
+	private String telNo; // tel_no
+	private Date hireDate; // hire_date
+	private int salary; // salray
 	
 	
 	// 생성자

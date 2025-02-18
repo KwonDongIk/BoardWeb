@@ -33,17 +33,21 @@ public class SampleServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter(); // 출력 스트림 생성ㅣ
 		for (int i = 0; i <= 3; i ++) {
 			
-		out.print("<h1>맨유 화이팅~~!</h1>");
+		out.print("<h1>맨유 챔스 우승할듯</h1>");
 		
 		}
 		
-		EmpDAO edao = new EmpDAO();
-		List<Employee> list = edao.search(new Employee());
+		//EmpDAO edao = new EmpDAO();
+		StudentDAO sdao = new StudentDAO();
+		//List<Employee> list = sdao.search(new Student());
+		List<Student> list = sdao.studentList();
 		
 		System.out.println("조회된 데이터 수 : " + list.size());
 		
-		for(Employee emp : list) {
-			out.print("<p>사번 :  <a href='empInfo?eno="+emp.getEmpNo()+"'>"+ emp.getEmpNo() + "</a>, 이름 : " + emp.getEmpName() + "</p>");
+		// Employee emp
+		for(Student std : list) {
+			out.print("<p>학번 :  <a href='empInfo?eno="+std.getStudentNo()+"'>"
+						+ std.getStudentNo() + "</a>, 이름 : " + std.getStudentName() + "</p>");
 			}
 //		out.print("<script>alert('hi')</script>");
 		}
