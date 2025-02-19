@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.AddBoardListControl;
+import com.yedam.control.AddFormControl;
 import com.yedam.control.BoardListControl;
 import com.yedam.control.Control;
 
@@ -33,8 +34,13 @@ public class FrontController extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException {
 		
 		//map.put("url", "servlet"); // addStudent.do AddStudentServlet
-		map.put("/boardList.do", new BoardListControl());
-		map.put("/addBoard.do", new AddBoardListControl());
+		map.put("/main.do", new MainControl());
+		map.put("/boardList.do", new BoardListControl()); // 글목록
+		map.put("/addForm.do", new AddFormControl()); // 등록화면
+		map.put("/addBoard.do", new AddBoardListControl()); // 등록처리
+		map.put("/board.do", new BoardControl()); // 상세화면
+		map.put("/modifyForm.do", new ModifyControl()); // 수정화면
+		map.put("/modifyBoard.do", new ModifyBoardControl()); // 수정처리
 	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

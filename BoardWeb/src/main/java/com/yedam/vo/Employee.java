@@ -4,6 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /*
  * 사원번호(정수타입)
  * 사원의 이름(홍길동, 김민수)
@@ -11,6 +17,13 @@ import java.util.Date;
  * 입사일자(2020-02-03)
  * 급여(300, 350)
  */
+
+
+@Setter
+@Getter
+@ToString
+@NoArgsConstructor // 기본 생성자를 만드는 어노테이션
+@AllArgsConstructor // 모든 매개값을 받는 생성자를 만드는 어노테이션
 
 public class Employee { // tbl_employess 
 	private int empNo; // emp_no 컬럼
@@ -21,10 +34,6 @@ public class Employee { // tbl_employess
 	
 	
 	// 생성자
-	public Employee() {
-		
-	}
-	
 	public Employee(int empNo, String empName, String telNo) {
 		this.empNo = empNo;
 		this.empName = empName;
@@ -51,48 +60,6 @@ public class Employee { // tbl_employess
 		
 		return empNo + "  " + empName + "  " + telNo + "  " + salary;
 	}
-
-	// getter, setter
-	public int getEmpNo() {
-		return empNo;
-	}
-
-	public void setEmpNo(int empNo) {
-		this.empNo = empNo;
-	}
-
-	public String getEmpName() {
-		return empName;
-	}
-
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-
-	public String getTelNo() {
-		return telNo;
-	}
-
-	public void setTelNo(String telNo) {
-		this.telNo = telNo;
-	}
-
-	public Date getHireDate() {
-		return hireDate;
-	}
-
-	public void setHireDate(Date hireDate) {
-		this.hireDate = hireDate;
-	}
-
-	public int getSalary() {
-		return salary;
-	}
-
-	public void setSalary(int salary) {
-		this.salary = salary;
-	}
-	
 	
 	
 
