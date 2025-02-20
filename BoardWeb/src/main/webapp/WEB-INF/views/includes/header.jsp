@@ -25,9 +25,20 @@
                 <div class="sidebar-heading border-bottom bg-light"><a href = "main.do">Start Bootstrap</a></div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">게시글 목록</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="addForm.do">글등록(화면)</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="board.do">임시 상세화면 페이지</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
+                    <!-- 세션(loginID) 값을 저장 -->
+                    <% String logId = (String) session.getAttribute("loginID"); 
+                    	
+                    	if (logId == null) { // "" 일때
+                    %>
+		                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="login.do">로그인</a>                    		
+                    	
+                    	<%} else {%>
+                   			
+                    		<a class="list-group-item list-group-item-action list-group-item-light p-3" href="addForm.do">글등록(화면)</a>
+                   			<a class="list-group-item list-group-item-action list-group-item-light p-3" href="logout.do">로그아웃(<%=logId%>)</a>
+                    <%} %>
+                    
+                    
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>

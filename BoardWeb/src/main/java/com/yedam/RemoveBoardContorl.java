@@ -8,22 +8,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.Control;
 import com.yedam.dao.BoardDAO;
-import com.yedam.vo.BoardVO;
 
-public class BoardControl implements Control {
+public class RemoveBoardContorl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		// ?bno=6 글번호만 알고있으면 됨
 		String bno = req.getParameter("bno");
 		
 		BoardDAO bdao = new BoardDAO();
-		BoardVO board = bdao.getBoard(Integer.parseInt(bno));
-		bdao.updateCount(Integer.parseInt(bno)); // 조회수 증가
-		
-		// 요청정보의 attribute 활용
-		req.setAttribute("board", board);
-		req.getRequestDispatcher("/WEB-INF/views/board.jsp").forward(req, resp);
+		if (bdao.deleteBoard(Integer.parseInt(bno))){
+			
+			resp.sendRedirect("boardList.do");
+			
+		} else {
+			
+			System.out.println("처리를 실패했어요.");
+			
+		}
 
 	}
 

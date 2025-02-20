@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
@@ -16,7 +17,31 @@ public class DAO {
 	Statement stmt; // 쿼리 실행하고 결과 반환
 	PreparedStatement psmt;
 	ResultSet rs;
+		
+		// 세션해제
+		void disConnect() {
+				try {
+						if(conn != null) {
+							conn.close();
+						}
+						if(rs != null) {
+							rs.close();
+						}
+						if(psmt != null) {
+							psmt.close();
+						}
+						if(stmt != null) {
+							conn.close();
+						}
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			}
+		
 	
+	
+		// 오라클 접속 세션연결
 		Connection getConnect() {
 			String url = "jdbc:oracle:thin:@localhost:1521:xe"; // oracle DB의 접속 정보
 			String user = "hr";

@@ -1,3 +1,4 @@
+<%@page import="com.yedam.PageVO"%>
 <%@page import="com.yedam.vo.BoardVO"%>
 <%@page import="com.yedam.vo.Employee"%>
 <%@page import="java.util.List"%>
@@ -50,6 +51,12 @@
 			background-color: white;
 			text-decoration: none;
 		}
+		
+		#paging_nav{
+			display: flex;
+			justify-content: center;
+			margin: 20px auto;
+		}
 	</style>
 	
 	<jsp:include page="includes/header.jsp"></jsp:include>
@@ -61,8 +68,10 @@
 		System.out.println(msg);
 		String result = (String) request.getAttribute("msg");
 		List<BoardVO> list = (List<BoardVO>) request.getAttribute("list");
+		// Control에서 paging의 값을 얻어오기
+		PageVO paging = (PageVO) request.getAttribute("paging");
 	%>
-	<h3>게시글 목록</h3>
+	<h3>게시글 목록</h3> <!--  // page의 값은 <%=paging %> -->
 	<table id = 'main_table' class = 'table table-hover'>
 		<tbody>
 		<thead>
@@ -90,4 +99,44 @@
 	%>
 		</tbody>
 	</table>
+	<!-- paging -->
+	<nav aria-label="..." id = "paging_nav">
+		<ul class="pagination">
+			<!-- 이전 페이지 여부 -->
+			<%if (paging.isPrev()) {%>
+			<li class="page-item"><a class="page-link" href="boardList.do?page=<%=paging.getStartPage()-1%>">이전</a></li>
+			<%} else {%>
+			<li class="page-item disabled"><span class="page-link">이전</span></li>
+			<%} 
+			 %>
+			
+			
+			
+			<!-- 페이지 start ~ end 반복 -->
+			<%for (int p = paging.getStartPage(); p <= paging.getEndPage(); p++ ) {%>
+			
+			<%if (p == paging.getCurrentPage()) {%>
+			
+				<li class="page-item active" aria-current="page"><span class="page-link"><%=p %></span></li>
+			
+				<%} else {%>
+			
+			<li class="page-item"><a class="page-link" href="boardList.do?page=<%=p %>"><%=p %></a></li>
+			<%}
+			
+			}%>
+			
+			<!--  <li class="page-item"><a class="page-link" href="boardList.do?page=">3</a></li> -->
+			
+			<!-- 이후 페이지 여부 -->
+			<%if (paging.isNext()) {%>
+			<li class="page-item"><a class="page-link" href="boardList.do?page=<%=paging.getEndPage()+1%>">다음</a></li>
+			<%} else {%>
+			<li class="page-item disabled"><span class="page-link">다음</span></li>
+			<%} 
+			 %>
+			
+			
+		</ul>
+	</nav>
 <jsp:include page="includes/footer.jsp"></jsp:include>
