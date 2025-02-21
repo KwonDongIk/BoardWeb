@@ -16,6 +16,7 @@ public class BoardVO {
 	private String boardWriter;
 	private Date boardDate;
 	private int boardView;
+	private String img;
 
 }
 

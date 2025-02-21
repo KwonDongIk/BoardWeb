@@ -1,6 +1,6 @@
-<%@page import="com.yedam.vo.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
 <style>
@@ -28,45 +28,46 @@
 		color: red;
 		
 	}
-	
 </style>
 <jsp:include page="includes/header.jsp"></jsp:include>
 <h1>상세화면(board.jsp)</h1>
-<%
-	BoardVO board = (BoardVO) request.getAttribute("board");
-	String msg = (String) request.getAttribute("msg");
-	String logID = (String) session.getAttribute("loginID");
-%>
+
 <form action="modifyForm.do">
-<input type="hidden" name="bno" value="<%=board.getBoardNo() %>">
+<input type="hidden" name="bno" value="${board.boardNo }">
 <table class="table" id="main_table">
 	<tr>
-		<th>번호</th><td><%=board.getBoardNo() %></td>
-		<th>조회수</th><td><%=board.getBoardView() %></td>
+		<th>번호</th><td><c:out value="${board.boardNo }"></c:out></td>
+		<th>조회수</th><td><c:out value="${board.boardView }"></c:out></td>
 	</tr>
 	<tr>
 		<th>작성자</th>
-		<td><%=board.getBoardWriter() %></td>
+		<td><c:out value="${board.boardWriter }"></c:out></td>
 		<th>작성날짜</th>
-		<td><%=board.getBoardDate() %></td>
+		<td><c:out value="${board.boardDate }"></c:out></td>
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td colspan="3"><%=board.getBoardTitle() %></td>
+		<td colspan="3"><c:out value="${board.boardTitle }"></c:out></td>
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td colspan="3"><%=board.getBoardContent() %></td>
+		<td colspan="3"><c:out value="${board.boardContent }"></c:out></td>
+	</tr>
+	<tr>
+		<th>상세 이미지</th>
+		<td colspan="3"><img src="images/${board.img}" style="width: 500px"></td>
 	</tr>
 	<tr>
 		<td colspan="4">
 		<button class = "btn btn-warning" type="submit">수정</button>
 		<button class = "btn btn-danger" type="button">삭제</button><br>
-		<%if (msg != null) {%>
 		
-			<span><%=msg %></span>
+		<c:if test="${msg != null }">
+		
+			<span>${msg }</span>
 			
-		<% }%>
+		</c:if>
+		
 		</td>
 		
 	</tr>
@@ -74,7 +75,7 @@
 </form>
 <script>
 
-	let logid = "<%=logID%>";
+	let logid = "${loginID}";
 	
 	// 삭제버튼에 클릭 이벤트
 	document.querySelector('button.btn-danger').addEventListener('click', function(e){

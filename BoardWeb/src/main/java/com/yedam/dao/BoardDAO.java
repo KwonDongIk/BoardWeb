@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.yedam.vo.BoardVO;
+import com.yedam.vo.SearchVO;
 
 /*
  * 추가, 수정, 삭제, 조회
@@ -14,10 +15,31 @@ import com.yedam.vo.BoardVO;
 public class BoardDAO extends DAO {
 	
 	// 페이징 처리를 위한 실제 데이터
-	public int getTotalCount() { // 해당 테이블 데이터 건수 모두 반환
+	public int getTotalCount(SearchVO search) { // 해당 테이블 데이터 건수 모두 반환
 		String sql = "SELECT count(1) FROM tbl_board";
+		
+		if (search.getSearchCondition().equals("T")) {
+			sql += "	WHERE title like '%'||?||'%' ";
+		} else if (search.getSearchCondition().equals("W")) {
+			sql += "	WHERE writer like '%'||?||'%' ";
+		} else if (search.getSearchCondition().equals("TW")) {
+			sql += "	WHERE title like '%'||?||'%' or writer like '%'||?||'%' ";
+		}
+		
+		
 		try {
 			psmt = getConnect().prepareStatement(sql);
+			int cnt = 1;
+			// 조건
+			
+			if (search.getSearchCondition().equals("T")) {
+				psmt.setString(cnt++, search.getKeyword());
+			} else if (search.getSearchCondition().equals("W")) {
+				psmt.setString(cnt++, search.getKeyword());
+			} else if (search.getSearchCondition().equals("TW")) {
+				psmt.setString(cnt++, search.getKeyword());
+				psmt.setString(cnt++, search.getKeyword());
+			}
 			rs = psmt.executeQuery();
 			
 			if (rs.next()) {
@@ -71,6 +93,7 @@ public class BoardDAO extends DAO {
 				board.setBoardWriter(rs.getString("writer"));
 				board.setBoardDate(rs.getDate("write_date"));
 				board.setBoardView(rs.getInt("view_cnt"));
+				board.setImg(rs.getString("img"));
 
 				return board;
 			}
@@ -84,18 +107,41 @@ public class BoardDAO extends DAO {
 	}
 
 	// 조회
-	public List<BoardVO> selectBoard(int page) {
+	public List<BoardVO> selectBoard(SearchVO search) {
 
 		List<BoardVO> bList = new ArrayList<>();
-		String qry = "SELECT * FROM( "
-					+ "SELECT rownum rn, tbl_a.* FROM( "
-					+ "SELECT * FROM tbl_board ORDER BY board_no DESC) tbl_a) tbl_b "
-					+ "WHERE tbl_b.rn >= (? - 1) * 5 + 1 and tbl_b.rn <= ? * 5";
+		String qry = 	"SELECT * FROM( "
+						+ "SELECT rownum rn, tbl_a.* FROM( "
+						+ "SELECT * FROM tbl_board ";
+					
+						if (search.getSearchCondition().equals("T")) {
+							qry += "	WHERE title like '%'||?||'%' ";
+						} else if (search.getSearchCondition().equals("W")) {
+							qry += "	WHERE writer like '%'||?||'%' ";
+						} else if (search.getSearchCondition().equals("TW")) {
+							qry += "	WHERE title like '%'||?||'%' or writer like '%'||?||'%' ";
+						}
+					
+					qry += "ORDER BY board_no DESC) tbl_a) tbl_b "
+						+ "WHERE tbl_b.rn >= (? - 1) * 5 + 1 and tbl_b.rn <= ? * 5";
 
 		try {
 			psmt = getConnect().prepareStatement(qry);
-			psmt.setInt(1, page);
-			psmt.setInt(2, page);
+			
+			int cnt = 1;
+			// 조건
+			
+			if (search.getSearchCondition().equals("T")) {
+				psmt.setString(cnt++, search.getKeyword());
+			} else if (search.getSearchCondition().equals("W")) {
+				psmt.setString(cnt++, search.getKeyword());
+			} else if (search.getSearchCondition().equals("TW")) {
+				psmt.setString(cnt++, search.getKeyword());
+				psmt.setString(cnt++, search.getKeyword());
+			}
+			
+			psmt.setInt(cnt++, search.getPage());
+			psmt.setInt(cnt++, search.getPage());
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
@@ -120,13 +166,14 @@ public class BoardDAO extends DAO {
 
 	// 추가
 	public boolean insertBoard(BoardVO board) {
-		String qry = "INSERT INTO tbl_board (board_no, title, content, writer) VALUES (board_seq.nextval, ?, ?, ?)";
+		String qry = "INSERT INTO tbl_board (board_no, title, content, writer, img) VALUES (board_seq.nextval, ?, ?, ?, ?)";
 
 		try {
 			psmt = getConnect().prepareStatement(qry);
 			psmt.setString(1, board.getBoardTitle());
 			psmt.setString(2, board.getBoardContent());
 			psmt.setString(3, board.getBoardWriter());
+			psmt.setString(4, board.getImg());
 
 			int r = psmt.executeUpdate();
 			if (r > 0) {
@@ -149,6 +196,7 @@ public class BoardDAO extends DAO {
 			psmt.setString(1, board.getBoardTitle());
 			psmt.setString(2, board.getBoardContent());
 			psmt.setInt(3, board.getBoardNo());
+			
 
 			int r = psmt.executeUpdate();
 			if (r > 0) {

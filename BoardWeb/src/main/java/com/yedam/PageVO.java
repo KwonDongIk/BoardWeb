@@ -15,8 +15,8 @@ public class PageVO {
 	
 	public PageVO(int page, int totalCnt) {
 		currentPage = page;
-		endPage = (int) Math.ceil(currentPage / 10.0) * 10;
-		startPage = endPage - 9; // 계산상의 start, end
+		endPage = (int) Math.ceil(currentPage / 5.0) * 5;
+		startPage = endPage - 4; // 계산상의 start, end
 		
 		int realEnd = (int) Math.ceil(totalCnt / 5.0); // 실제 마지막 페이지
 		endPage = endPage > realEnd ? realEnd : endPage;
