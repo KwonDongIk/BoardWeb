@@ -23,7 +23,7 @@ public class BoardControl implements Control {
 		
 		// 요청정보의 attribute 활용
 		req.setAttribute("board", board);
-		req.getRequestDispatcher("/WEB-INF/views/board.jsp").forward(req, resp);
+		req.getRequestDispatcher("/board/board.tiles").forward(req, resp);
 
 	}
 

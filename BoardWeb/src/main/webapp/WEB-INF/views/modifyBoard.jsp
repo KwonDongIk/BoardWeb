@@ -22,7 +22,6 @@
 		}
 </style>
 
-<jsp:include page="includes/header.jsp"></jsp:include>
 <h1>수정화면(modifyBoard.jsp)</h1>
 
 <%
@@ -63,4 +62,3 @@
 	</table>
 </form>
 
-<jsp:include page="includes/footer.jsp"></jsp:include>

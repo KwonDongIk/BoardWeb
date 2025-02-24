@@ -33,7 +33,6 @@ table td {
 		}
 </style>
 
-<jsp:include page="includes/header.jsp"></jsp:include>
 
 
 <h3>글등록화면(addForm.jsp)</h3>
@@ -59,4 +58,3 @@ table td {
 	</table>
 </form>
 
-<jsp:include page="includes/footer.jsp"></jsp:include>

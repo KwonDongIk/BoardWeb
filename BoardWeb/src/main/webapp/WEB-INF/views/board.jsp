@@ -29,7 +29,6 @@
 		
 	}
 </style>
-<jsp:include page="includes/header.jsp"></jsp:include>
 <h1>상세화면(board.jsp)</h1>
 
 <form action="modifyForm.do">
@@ -99,4 +98,3 @@
 	
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<jsp:include page="includes/footer.jsp"></jsp:include>

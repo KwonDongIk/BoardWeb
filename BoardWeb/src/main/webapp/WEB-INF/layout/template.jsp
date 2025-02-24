@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8"/>
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -13,36 +14,11 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <style>
-    	*{
-    		font-family: "Pretendard", san-serif;
-    	}
-    </style>
     <body>
         <div class="d-flex" id="wrapper">
-            <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light"><a href = "main.do">Start Bootstrap</a></div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">게시글 목록</a>
-                    <!-- 세션(loginID) 값을 저장 -->
-                    <% String logId = (String) session.getAttribute("loginID"); 
-                    	
-                    	if (logId == null) { // "" 일때
-                    %>
-		                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="login.do">로그인</a>                    		
-                    	
-                    	<%} else {%>
-                   			
-                    		<a class="list-group-item list-group-item-action list-group-item-light p-3" href="addForm.do">글등록(화면)</a>
-                   			<a class="list-group-item list-group-item-action list-group-item-light p-3" href="logout.do">로그아웃(<%=logId%>)</a>
-                    <%} %>
-                    
-                    
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
-                </div>
-            </div>
+            <!-- header 위치 -->
+            <tiles:insertAttribute name="header"/>
+            
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
@@ -67,3 +43,14 @@
                         </div>
                     </div>
                 </nav>
+                <!-- Page content-->
+                <div class="container-fluid">
+                    <!-- body 위치 -->
+                    <tiles:insertAttribute name="body"/>
+                </div>
+            </div>
+        </div>
+        <!-- footer 위치 -->
+        <tiles:insertAttribute name="footer"/>
+    </body>
+</html>

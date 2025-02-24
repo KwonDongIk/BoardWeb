@@ -50,7 +50,7 @@ public class BoardListControl implements Control{
 		req.setAttribute("keyword", kw);
 		
 		// 요청 재지정(url:boardList.do (boardList.jsp))
-		req.getRequestDispatcher("/WEB-INF/views/boardList.jsp").forward(req, resp);
+		req.getRequestDispatcher("board/boardList.tiles").forward(req, resp);
 			
 		
 	}

@@ -1,5 +1,6 @@
 package com.yedam;
 
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,14 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.AddBoardListControl;
 import com.yedam.control.AddFormControl;
+import com.yedam.control.AjaxControl;
 import com.yedam.control.BoardListControl;
 import com.yedam.control.Control;
+import com.yedam.control.DataControl;
+import com.yedam.control.MemberListControl;
+import com.yedam.control.removeMemberControl;
 
 /*
  * MVC에서 Control 역할
  * url 요청 -> 서블릿 실행
  */
-@WebServlet("*.do")
+//@WebServlet("*.do")
 public class FrontController extends HttpServlet{
 	
 	Map<String, Control> map;
@@ -47,6 +52,15 @@ public class FrontController extends HttpServlet{
 		map.put("/loginForm.do", new LoginControl());
 		map.put("/login.do", new LoginControl());
 		map.put("/logout.do", new LogoutControl());
+		
+		// 회원관련 member
+		map.put("/memberList.do", new MemberListControl());
+		map.put("/testAjax.do", new AjaxControl());
+		map.put("/testData.do", new DataControl());
+		
+		// 회원삭제
+		map.put("/removeMember.do", new removeMemberControl());
+		
 	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

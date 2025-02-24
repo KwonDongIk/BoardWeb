@@ -66,7 +66,6 @@
 	
 </style>
 
-<jsp:include page="includes/header.jsp"></jsp:include>
 
 <h3>게시글 목록</h3>
 <form action="boardList.do" id="main_form">
@@ -164,4 +163,3 @@
 
 	</ul>
 </nav>
-<jsp:include page="includes/footer.jsp"></jsp:include>
