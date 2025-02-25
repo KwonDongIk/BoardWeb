@@ -20,6 +20,28 @@
 			border: 3px solid black;
 			text-align: center;
 		}
+		
+	.content{
+			width: 1000px;
+			font-size: 28px;
+			margin: 0 auto;
+			background-color: green;
+			color: white;
+			border: 3px solid black;
+			text-align: center;
+			margin-top: 30px;
+	}
+	
+	.header{
+			width: 1000px;
+			font-size: 28px;
+			margin: 0 auto;
+			background-color: green;
+			color: white;
+			border: 3px solid black;
+			text-align: center;
+			margin-top: 30px;
+	}
 	
 	#main_table span{
 	
@@ -27,6 +49,23 @@
 		text-decoration: underline;
 		color: red;
 		
+	}
+	
+	.reply .content ul {
+	
+		list-style-type:none;
+	
+	}
+	
+	.reply .content span {
+	
+		display: inline-block;
+	
+	}
+	
+	.reply .content ul .li_1 {
+	
+		font-weight: bold;
 	}
 </style>
 <h1>상세화면(board.jsp)</h1>
@@ -72,9 +111,46 @@
 	</tr>
 </table>
 </form>
+
+
+<!-- 댓글 관련 -->
+<div class = "container reply">
+	<!-- 댓글 등록 -->
+	<div class = "header">
+		<input type="text" id="reply" class="col-sm-9">
+		<button id="addReply">댓글등록</button>
+
+	</div>
+	
+	<!-- 댓글 목록 -->
+	<div class = "content">
+		<ul>
+			<li class = "li_1">
+				<span class = "col-sm-2">글번호</span>
+				<span class = "col-sm-5">글내용</span>
+				<span class = "col-sm-2">작성자</span>
+				<span class = "col-sm-2">삭제</span>
+				<hr>
+			</li>
+		</ul>
+	
+	</div>
+	
+	<!-- 댓글 페이징 -->
+	<div class = "footer">
+	
+	
+	</div>
+
+</div>
+
 <script>
 
 	let logid = "${loginID}";
+	
+	const bno = "${board.boardNo }";
+	
+	console.log(bno);
 	
 	// 삭제버튼에 클릭 이벤트
 	document.querySelector('button.btn-danger').addEventListener('click', function(e){
@@ -97,4 +173,6 @@
 	});
 	
 </script>
+<script src="js/replyService.js"></script>
+<script src="js/reply.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

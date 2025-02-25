@@ -8,11 +8,6 @@
 
 	}
 
-	body {
-		text-align: center;
-
-	}
-
 	h3 {
 		font-size: 80px !important;
 		margin: 30px !important;

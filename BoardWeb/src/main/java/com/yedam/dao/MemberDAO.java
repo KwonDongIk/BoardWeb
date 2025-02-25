@@ -77,6 +77,55 @@ public class MemberDAO extends DAO{
 		}
 		return null; // 조회결과 없음
 	}
+
+
+	// 삭제
+	public boolean deleteMember(String id) {
+		
+		String qry = "DELETE from tbl_member WHERE member_id = ?";
+		
+		try {
+			psmt = getConnect().prepareStatement(qry);
+			psmt.setString(1, id);
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				return true;
+			}
+		} catch (SQLException e) { 
+			
+			e.printStackTrace();
+			
+		} finally {
+			disConnect();
+		}
+		return false;
+	}
+
+
+
+	public boolean insertMember(MemberVO member) {
+		
+		String qry = "INSERT into tbl_member (member_id, passwd, member_name) VALUES (?, ?, ?)";
+					
+		
+		try {
+			psmt = getConnect().prepareStatement(qry);
+			psmt.setString(1, member.getMemberID());
+			psmt.setString(2, member.getPasswd());
+			psmt.setString(3, member.getMemberName());
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			disConnect();
+		}
+		
+		return false;
+	}
 	
 	
 
