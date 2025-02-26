@@ -67,6 +67,12 @@
 	
 		font-weight: bold;
 	}
+	
+	.footer {
+	
+		margin-top: 30px;
+		
+	}
 </style>
 <h1>상세화면(board.jsp)</h1>
 
@@ -138,7 +144,11 @@
 	
 	<!-- 댓글 페이징 -->
 	<div class = "footer">
-	
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
+	    
+	  </ul>
+	</nav>
 	
 	</div>
 

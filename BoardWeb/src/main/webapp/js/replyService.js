@@ -10,8 +10,8 @@ const svc = {
 	},
 	
 	// 목록메소드
-	replyList : function(bno, successCallback, errorCallback) {
-		fetch('replyList.do?bno=' + bno)
+	replyList : function(param={bno, page}, successCallback, errorCallback) {
+		fetch('replyList.do?bno=' + param.bno +"&page=" + param.page)
 			.then(result => result.json()) // 화살표 함수
 			.then(successCallback) // 정상처리시 실행 함수
 			.catch(errorCallback) // 에러시 실행할 함수
@@ -34,8 +34,15 @@ const svc = {
 			.then(result => result.json()) // 화살표 함수
 			.then(successCallback) // 정상처리시 실행 함수
 			.catch(errorCallback) // 에러시 실행할 함수
+	},
+	
+	// 페이징
+	makePaging(bno = 1, successCallback, errorCallback){
 		
-		
+		fetch('getReplyCnt.do?bno=' + bno)
+			.then(result => result.json()) // 화살표 함수
+			.then(successCallback) // 정상처리시 실행 함수
+			.catch(errorCallback) // 에러시 실행할 함수
 		
 	}
 }

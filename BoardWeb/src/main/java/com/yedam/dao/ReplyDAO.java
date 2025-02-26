@@ -3,16 +3,78 @@ package com.yedam.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.yedam.vo.ReplyVO;
 
 public class ReplyDAO extends DAO{
 	
-	// 목록
-	public List<ReplyVO> replyList(int boardNo){
+	// 부서별 인원 현황
+	public List<Map<String, Object>> chartData() {
+		String sql = "SELECT emp.department_id, dept.department_name, count(1) cnt "
+					+ "FROM employees emp "
+					+ "JOIN departments dept "
+					+ "ON emp.department_id = dept.department_id "
+					+ "GROUP BY emp.department_id, dept.department_name";
 		
-		String sql = "SELECT * FROM tbl_reply where board_no = ?";
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		try {
+			psmt = getConnect().prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("dept_name", rs.getString(2));
+				map.put("dept_count", rs.getInt(3));
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			
+			disConnect();
+		}
+		return list;
+	}
+	
+	
+	// 댓글의 전체 건수(페이징)
+	public int replyCount(int boardNo) {
+		
+		String sql = "SELECT COUNT(1) FROM tbl_reply WHERE board_no = ?";
+		
+		try {
+			psmt = getConnect().prepareStatement(sql);
+			psmt.setInt(1, boardNo);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				return rs.getInt(1);
+				
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			disConnect();
+			
+		}
+		return 0;
+	}
+	
+	
+	// 목록
+	public List<ReplyVO> replyList(int boardNo, int page){
+		
+		String sql = "SELECT tbl_a.* "
+					+ "FROM (SELECT /*+ INDEX_DESC (r pk_reply) */ ROWNUM rn, r.* FROM tbl_reply r WHERE board_no = ?) "
+					+ "tbl_a WHERE tbl_a.rn > (?-1)*5 and tbl_a.rn <= ?*5 ";
 		
 		List<ReplyVO> list = new ArrayList<>();
 		
@@ -20,6 +82,8 @@ public class ReplyDAO extends DAO{
 			
 			psmt = getConnect().prepareStatement(sql);
 			psmt.setInt(1, boardNo);
+			psmt.setInt(2, page);
+			psmt.setInt(3, page);
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
@@ -52,7 +116,7 @@ public class ReplyDAO extends DAO{
 	public ReplyVO selectReply(int replyNo) {
 		
 		
-		String sql = "SELECT * FROM tbl_reply where relpy_no = ?";
+		String sql = "SELECT * FROM tbl_reply where reply_no = ?";
 		
 		List<ReplyVO> list = new ArrayList<>();
 		
