@@ -115,8 +115,7 @@
 			</tr>
 		</c:forEach>
 	</tbody>
-</table>
-<!-- paging -->
+</table>5<!-- paging -->
 <nav aria-label="..." id="paging_nav">
 	<ul class="pagination">
 		<!-- 이전 페이지 여부 -->

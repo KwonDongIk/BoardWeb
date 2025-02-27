@@ -6,8 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+
+import com.yedam.common.DataSource;
 import com.yedam.control.Control;
 import com.yedam.dao.BoardDAO;
+import com.yedam.mapper.BoardMapper;
 
 public class RemoveBoardContorl implements Control {
 
@@ -16,9 +20,12 @@ public class RemoveBoardContorl implements Control {
 		// ?bno=6 글번호만 알고있으면 됨
 		String bno = req.getParameter("bno");
 		
-		BoardDAO bdao = new BoardDAO();
-		if (bdao.deleteBoard(Integer.parseInt(bno))){
+		//BoardDAO bdao = new BoardDAO();
+		SqlSession sqlSession = DataSource.getInstance().openSession();
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		if (mapper.deleteBoard(Integer.parseInt(bno)) == 1){
 			
+			sqlSession.commit(true);
 			resp.sendRedirect("boardList.do");
 			
 		} else {

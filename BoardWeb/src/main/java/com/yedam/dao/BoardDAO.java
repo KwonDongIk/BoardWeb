@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yedam.common.SearchVO;
 import com.yedam.vo.BoardVO;
-import com.yedam.vo.SearchVO;
 
 /*
  * 추가, 수정, 삭제, 조회
@@ -110,7 +110,7 @@ public class BoardDAO extends DAO {
 	public List<BoardVO> selectBoard(SearchVO search) {
 
 		List<BoardVO> bList = new ArrayList<>();
-		String qry = 	"SELECT * FROM( "
+		String qry = 	"SELECT tbl_b.* FROM( "
 						+ "SELECT rownum rn, tbl_a.* FROM( "
 						+ "SELECT * FROM tbl_board ";
 					

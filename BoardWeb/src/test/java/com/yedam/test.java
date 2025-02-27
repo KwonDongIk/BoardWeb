@@ -1,22 +1,23 @@
 package com.yedam;
 
-import java.util.List;
-import java.util.Map;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.yedam.dao.ReplyDAO;
+import com.yedam.common.DataSource;
+import com.yedam.common.SearchVO;
+import com.yedam.mapper.BoardMapper;
 
 public class test {
 	public static void main(String[] args) {
-		ReplyDAO rdao = new ReplyDAO();
-		rdao.chartData();
-		List<Map<String, Object>> list = rdao.chartData();
+		SqlSessionFactory sqlSessionFactory = DataSource.getInstance();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		Gson gson  = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(list);
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
 		
-		System.out.println(json);
+		SearchVO search = new SearchVO(1, "T", "카니발");
+		
+		int row = mapper.getTotalCount(search);
+		System.out.println("건수는 : " + row);
 	}
 
 }

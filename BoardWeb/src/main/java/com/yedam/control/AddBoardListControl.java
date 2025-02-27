@@ -5,10 +5,15 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
+
+import org.apache.ibatis.session.SqlSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.yedam.common.DataSource;
 import com.yedam.dao.BoardDAO;
+import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
 public class AddBoardListControl implements Control {
@@ -47,9 +52,12 @@ public class AddBoardListControl implements Control {
 		bvo.setImg(img); // 추가한 img 칼럼
 		
 		
-		BoardDAO bdao = new BoardDAO();
-		if(bdao.insertBoard(bvo)) {
+		//BoardDAO bdao = new BoardDAO();
+		SqlSession sqlSession = DataSource.getInstance().openSession();
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		if(mapper.insertBoard(bvo) == 1) {
 			// forward(매개값 활용) vs redirect(매개값을 전달 못함)
+			sqlSession.commit(true);
 			resp.sendRedirect("boardList.do");
 		} else {
 			System.out.println("실패");
