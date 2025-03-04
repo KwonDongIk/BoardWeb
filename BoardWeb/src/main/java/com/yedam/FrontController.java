@@ -15,11 +15,13 @@ import com.yedam.control.AddBoardListControl;
 import com.yedam.control.AddFormControl;
 import com.yedam.control.AddReplyControl;
 import com.yedam.control.AjaxControl;
+import com.yedam.control.ApiControl;
 import com.yedam.control.BoardListControl;
 import com.yedam.control.ChartControl;
 import com.yedam.control.ChartData;
 import com.yedam.control.Control;
 import com.yedam.control.DataControl;
+import com.yedam.control.MapControl;
 import com.yedam.control.MemberListControl;
 import com.yedam.control.RemoveReplyControl;
 import com.yedam.control.ReplyCount;
@@ -79,6 +81,10 @@ public class FrontController extends HttpServlet{
 		// 차트
 		map.put("/chart.do", new ChartControl());
 		map.put("/chartData.do", new ChartData());
+		
+		
+		map.put("/api.do", new ApiControl());
+		map.put("/map.do", new MapControl());
 		
 	}
 	@Override
